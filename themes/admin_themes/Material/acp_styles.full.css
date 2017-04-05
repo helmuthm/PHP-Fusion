@@ -74,7 +74,7 @@ main {
     margin-left: 70px;
   }
 }
-.top-menu li > a > .fa {
+.top-menu .navbar-nav > li > a > .fa {
   font-size: 30px;
 }
 .top-menu .nav > li > a {
@@ -4286,4 +4286,7 @@ ol, ul {
   box-shadow: none !important;
   background: #fff;
   padding: 0 !important
+}
+label {
+  margin-bottom: 0;
 }

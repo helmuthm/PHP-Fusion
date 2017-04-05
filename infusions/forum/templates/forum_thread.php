@@ -62,8 +62,8 @@ if (!function_exists('render_thread')) {
             $participated_users .= "<span class='m-r-10'><strong>".$locale['forum_0581']."</strong></span>";
             $i = 1;
             $max = count($info['thread_users']);
-            foreach ($info['thread_users'] as $user_id => $users) {
-                $participated_users .= $users;
+            foreach ($info['thread_users'] as $user_id => $user) {
+                $participated_users .= profile_link($user['user_id'], $user['user_name'], $user['user_status']);
                 $participated_users .= $max == $i ? " " : ", ";
                 $i++;
             }
@@ -101,8 +101,8 @@ if (!function_exists('render_thread')) {
                 {%pagenav%}
             </div>
             <!--pre_forum_thread-->
-            {%post_items%}            
-            {%mod_form%}            
+            {%post_items%}
+            {%mod_form%}
             <div class='clearfix m-t-20'>
                 <div class='pull-left m-t-10'>
                 {%new_thread_button%}{%reply_button%}
@@ -137,7 +137,7 @@ if (!function_exists('render_thread')) {
                 '{%sticky_icon%}'       => ($data['thread_sticky'] == TRUE ? "<i title='".$locale['forum_0103']."' class='".get_forumIcons("sticky")."'></i>" : ''),
                 '{%locked_icon%}'       => ($data['thread_locked'] == TRUE ? "<i title='".$locale['forum_0102']."' class='".get_forumIcons("lock")."'></i>" : ''),
                 '{%thread_subject%}'    => $data['thread_subject'],
-                '{%time_updated%}'      => $locale['forum_0363'].timer($data['thread_lastpost']),
+                '{%time_updated%}'      => $locale['forum_0363'].' '.timer($data['thread_lastpost']),
                 '{%thread_tags%}'       => (!empty($info['thread_tags_display']) ? "<div class='clearfix'><i class='fa fa-tags text-lighter fa-fw'></i> ".$info['thread_tags_display']."</div>" : ''),
                 '{%poll_form%}'         => (!empty($info['poll_form']) ? "<div class='well'>".$info['poll_form']."</div>" : ''),
                 '{%poll_button%}'       => ($can_poll ? "<a class='btn btn-success btn-sm m-r-10 ".(!empty($info['thread']['thread_poll']) ? 'disabled' : '')."' title='".$buttons['poll']['title']."' href='".$buttons['poll']['link']."'>".$buttons['poll']['title']." <i class='fa fa-pie-chart'></i> </a>" : ''),

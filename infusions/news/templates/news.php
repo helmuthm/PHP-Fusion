@@ -332,6 +332,7 @@ if (!function_exists('render_news_item')) {
             </a>";
         }
         echo $data['news_news'];
+        echo $data['news_extended'];
         echo "</div>\n";
         echo $data['news_pagenav'];
         echo "<div style='clear:both;'></div>\n";

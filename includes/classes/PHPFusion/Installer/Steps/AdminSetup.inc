@@ -207,18 +207,18 @@ class InstallerAdminSetup extends Install_Core {
                 'error_text' => self::$locale['setup_5011']
             )
         );
-        $timezones = timezone_abbreviations_list();
-        $timezoneArray = array();
-        foreach ($timezones as $zones) {
-            foreach ($zones as $zone) {
-                if (preg_match('/^(America|Antartica|Arctic|Asia|Atlantic|Europe|Indian|Pacific)\//', $zone['timezone_id'])) {
-                    if (!in_array($zone['timezone_id'], $timezoneArray)) {
-                        $timezoneArray[$zone['timezone_id']] = $zone['timezone_id'];
-                    }
-                }
-            }
-        }
-        unset($timezones);
+		$timezones = timezone_abbreviations_list();
+		$timezoneArray = array();
+		foreach ($timezones as $zones) {
+			foreach ($zones as $zone) {
+				if (preg_match('/^(America|Antartica|Arctic|Asia|Atlantic|Europe|Indian|Pacific)\//', $zone['timezone_id'])) {
+					if (!in_array($zone['timezone_id'], $timezoneArray)) {
+						$timezoneArray[$zone['timezone_id']] = $zone['timezone_id'];
+					}
+				}
+			}
+		}
+		unset($timezones);
         $content .= form_select('default_timezone', self::$locale['setup_1511'], self::$siteData['default_timezone'], array('options' => $timezoneArray, 'required' => TRUE, 'inline' => TRUE));
         $content .= "<hr />\n";
         $content .= "<div class='m-b-20'><h4>".self::$locale['setup_1500']."</h4> ".self::$locale['setup_1501']."</div>\n";
@@ -357,6 +357,7 @@ class InstallerAdminSetup extends Install_Core {
                     dbquery("UPDATE ".DB_PREFIX."settings SET settings_value='".self::$siteData['siteusername']."' WHERE settings_name='siteusername'");
 
                     if (strpos(self::$siteData['enabled_languages'], '.')) {
+                        $result = dbquery("UPDATE ".DB_PREFIX."panels SET panel_languages='".self::$siteData['enabled_languages']."'");
 
                         $result = dbquery("SELECT link_language FROM ".DB_PREFIX."site_links GROUP by link_language ASC");
                         if (dbrows($result) > 0) {
